@@ -1,3 +1,7 @@
+output "spring_cloud_app_cosmosdb_associations_id" {
+  description = "Map of id values across all spring_cloud_app_cosmosdb_associations, keyed the same as var.spring_cloud_app_cosmosdb_associations"
+  value       = { for k, v in azurerm_spring_cloud_app_cosmosdb_association.spring_cloud_app_cosmosdb_associations : k => v.id }
+}
 output "spring_cloud_app_cosmosdb_associations_api_type" {
   description = "Map of api_type values across all spring_cloud_app_cosmosdb_associations, keyed the same as var.spring_cloud_app_cosmosdb_associations"
   value       = { for k, v in azurerm_spring_cloud_app_cosmosdb_association.spring_cloud_app_cosmosdb_associations : k => v.api_type }
