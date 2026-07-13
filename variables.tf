@@ -27,14 +27,6 @@ EOT
     cosmosdb_mongo_database_name     = optional(string)
     cosmosdb_sql_database_name       = optional(string)
   }))
-  validation {
-    condition = alltrue([
-      for k, v in var.spring_cloud_app_cosmosdb_associations : (
-        length(v.cosmosdb_access_key) > 0
-      )
-    ])
-    error_message = "must not be empty"
-  }
   # --- Unconfirmed validation candidates, derived from azurerm_spring_cloud_app_cosmosdb_association's provider source ---
   # Not auto-enabled: either a bespoke provider validator we can't safely translate,
   # or a path that crosses a list-typed block (needs its own for_each wrapping).
@@ -53,6 +45,9 @@ EOT
   #   source:    [from cosmosdb.ValidateDatabaseAccountID] err != nil
   # path: api_type
   #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
+  # path: cosmosdb_access_key
+  #   condition: length(value) > 0
+  #   message:   must not be empty
   # path: cosmosdb_cassandra_keyspace_name
   #   source:    [from cosmosValidate.CosmosEntityName] len(value) < 1 || len(value) > 255
   # path: cosmosdb_gremlin_database_name
